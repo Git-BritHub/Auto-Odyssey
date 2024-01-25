@@ -9,15 +9,12 @@ const CustomButton = ({ title, containerStyles, handleClick }: CustomButtonProps
      disabled={false}
     //  TODO: set up button type dynamically and replace current placeholder
      type={"button"}
-    //  TODO: replace placeholder template string when ready to add class names
-     className={`custom-btn`}
-     onClick={() => {
-        // TODO: give onClick logic
-     }}
+    //  TODO: add my own styling to button
+     className={`custom-btn ${containerStyles}`}
+     onClick={handleClick}
     >
-        {/* TODO: update with real title name later and update className template w/additional styles */}
         <span className={`flex-1`}>
-            Title
+            {title}
         </span>
     </button>
   )
