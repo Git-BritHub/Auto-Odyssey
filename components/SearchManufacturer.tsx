@@ -7,6 +7,13 @@ import { SearchManufacturerProps } from '@/types'
 
 const SearchManufacturer = ({ manufacturer, setManufacturer }: SearchManufacturerProps ) => {
   const [query, setQuery] = useState('');
+  const filteredManufacturers = query === "" 
+    ? manufacturers 
+    : manufacturers.filter((item) => (
+      item.toLowerCase()
+      .replace(/\s+/g, "")
+      .includes(query.toLowerCase().replace(/\s+/g, ""))
+    ))
   return (
     <div className="search-manufacturer">
         <Combobox>
@@ -33,7 +40,24 @@ const SearchManufacturer = ({ manufacturer, setManufacturer }: SearchManufacture
                   leaveTo="opacity-0"
                   afterLeave={() => setQuery('')}
                 >
-                  <Combobox.Options></Combobox.Options>
+                  <Combobox.Options>
+                    {filteredManufacturers.map((item) => (
+                          <Combobox.Option
+                            key={item}
+                            className={({ active}) => `
+                              relative search-manufacturer__option 
+                              ${active 
+                                ? 'bg-primary-blue text-white'
+                                : 'text-gray-900'
+                              }
+                            `}
+                            value={item}
+                          >
+                            {item}
+                          </Combobox.Option>
+                        ))
+                    }
+                  </Combobox.Options>
                 </Transition>
             </div>
         </Combobox>
